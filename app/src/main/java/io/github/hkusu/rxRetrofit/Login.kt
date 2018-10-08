@@ -9,11 +9,14 @@ class Login {
     @SerializedName("token")
     @Expose
     var token: String? = null
+
     @SerializedName("endToken")
     @Expose
     var endToken: String? = null
 
+
     @SerializedName("response")
     @Expose
     var response: String? = null
+
 }

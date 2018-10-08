@@ -3,7 +3,6 @@ package io.github.hkusu.rxRetrofit
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
-
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -29,24 +28,33 @@ class MainActivity : AppCompatActivity() {
             dispLogin = qiitaApiService!!.loginUser(etLogin.text.toString(), etPass.text.toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe ({ resp ->
-                        token = resp.token!!
-                        tvLogin.text = Gson().toJson(token)
-                        btnGet.isEnabled = true
-                    } ,{t->
+                    .subscribe({ resp ->
+                        tvLogin.text = Gson().toJson(resp)
+
+                        resp.token?.let {
+                            token = resp.token!!
+                            btnGet.isEnabled = true
+                        }
+
+                        resp.response?.let {
+                            btnGet.isEnabled = false
+                            token = ""
+                        }
+
+                    }, { t ->
                         tvLogin.text = Gson().toJson(t)
-                    },{})
+                    }, {})
         }
 
         btnGet.setOnClickListener {
             dispRequest = qiitaApiService!!.makeRequest(token)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe ({ resp ->
+                    .subscribe({ resp ->
                         tvMainResponse.text = Gson().toJson(resp)
-                    },{t->
+                    }, { t ->
                         tvMainResponse.text = Gson().toJson(t)
-                    },{})
+                    }, {})
         }
     }
 
