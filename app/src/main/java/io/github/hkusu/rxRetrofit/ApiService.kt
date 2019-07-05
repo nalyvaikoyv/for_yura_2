@@ -11,11 +11,11 @@ import retrofit2.http.POST
 interface ApiService {
 
     @FormUrlEncoded
-    @POST("api.php")
+    @POST("login.php")
     fun loginUser(@Field("login") login: String, @Field("pass") password: String): Observable<Login>
 
 
-    @GET("testToken.php")
-    fun makeRequest(@Header("token") token: String): Observable<ResponseExample>
+    @GET("zones.php")
+    fun makeRequest(@Header("token") token: String): Observable<List<JsonZones_Base>>
 
 }

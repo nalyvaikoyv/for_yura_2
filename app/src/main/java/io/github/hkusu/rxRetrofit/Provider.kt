@@ -10,7 +10,7 @@ object Provider {
     fun provideQiitaApiService(): ApiService? {
         if (qiitaApiService == null) {
             val retrofit = Retrofit.Builder()
-                    .baseUrl("http://warwindiuser.000webhostapp.com/api/")
+                    .baseUrl("http://warwind.pe.hu/newscan/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
