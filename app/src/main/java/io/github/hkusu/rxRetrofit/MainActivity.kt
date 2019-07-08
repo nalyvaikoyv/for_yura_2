@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         adapter?.onZoneClickListener = object : OnZoneClickListener {
             override fun onZoneClick(zone: JsonZones_Base) {
-                Toast.makeText(baseContext, "Clicked zone ${zone.name} id = e ${zone.id} ", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, " ${zone.name} ", Toast.LENGTH_LONG).show()
+                zoneActivity(zone)
+
             }
         }
     }
@@ -64,6 +66,20 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+    }
+
+    private fun zoneActivity(zone: JsonZones_Base){
+            Log.e("TAG", zone.id.toString())
+            Log.e("TAG", zone.index)
+            Log.e("TAG", zone.name)
+            Log.e("TAG", zone.type)
+        val intent = Intent(this, ZoneActivity::class.java)
+        intent.putExtra("id", zone.id)
+        intent.putExtra("index", zone.index)
+        intent.putExtra("name", zone.name)
+        intent.putExtra("type", zone.type)
+        startActivity(intent)
 
     }
 
