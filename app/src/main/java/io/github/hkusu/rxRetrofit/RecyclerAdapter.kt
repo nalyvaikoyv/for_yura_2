@@ -11,6 +11,8 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     var superItems: List<JsonZones_Base> = arrayListOf()
 
+    var onZoneClickListener : OnZoneClickListener ? = null
+
     public fun setItems(items: List<JsonZones_Base>) {
         if (items.isNotEmpty()) {
             this.superItems = items
@@ -41,6 +43,10 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         viewHolder.itemIndex.text = superItems.get(i).index
         viewHolder.itemName.text = superItems.get(i).name
         viewHolder.itemType.text = superItems.get(i).type
+
+        viewHolder.itemView.setOnClickListener {
+            onZoneClickListener?.onZoneClick(superItems.get(i))
+        }
         //  viewHolder.itemImage.text = details[i]
     }
 
@@ -53,4 +59,9 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return superItems.size
     }
+}
+
+
+interface OnZoneClickListener {
+    fun onZoneClick(zone: JsonZones_Base)
 }

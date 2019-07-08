@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         recycler_view.layoutManager = layoutManager
         recycler_view.adapter = adapter
 
-
+        adapter?.onZoneClickListener = object : OnZoneClickListener {
+            override fun onZoneClick(zone: JsonZones_Base) {
+                Toast.makeText(baseContext, "Clicked zone ${zone.name} id = e ${zone.id} ", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onResume() {
